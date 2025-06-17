@@ -1,10 +1,11 @@
  let display = document.getElementById("display");
+let answer = "";
 
-function appendValue(value) {
-  if (display.innerText === "0" && value !== '.') {
-    display.innerText = value;
+function appendValue(val) {
+  if (display.innerText === "0") {
+    display.innerText = val;
   } else {
-    display.innerText += value;
+    display.innerText += val;
   }
 }
 
@@ -12,19 +13,34 @@ function clearDisplay() {
   display.innerText = "0";
 }
 
-function deleteLast() {
-  if (display.innerText.length === 1 || display.innerText === "Error") {
-    display.innerText = "0";
-  } else {
+function deleteChar() {
+  if (display.innerText.length > 1) {
     display.innerText = display.innerText.slice(0, -1);
+  } else {
+    display.innerText = "0";
+  }
+}
+
+function sqrt() {
+  try {
+    let result = Math.sqrt(eval(display.innerText));
+    display.innerText = result;
+    answer = result;
+  } catch {
+    display.innerText = "Error";
   }
 }
 
 function calculate() {
   try {
-    let result = eval(display.innerText.replace(/÷/g, "/").replace(/×/g, "*"));
+    let result = eval(display.innerText);
     display.innerText = result;
+    answer = result;
   } catch {
     display.innerText = "Error";
   }
+}
+
+function useAns() {
+  display.innerText += answer;
 }
